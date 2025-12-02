@@ -1,0 +1,26 @@
+{
+  "name": "ethers-balance-tracker",
+  "version": "1.0.0",
+  "description": "A simple Node.js CLI tool using Ethers.js to track ERC-20 balances.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "ts-node balance-tracker.ts"
+  },
+  "keywords": [
+    "ethers",
+    "web3",
+    "typescript",
+    "cli"
+  ],
+  "author": "Daniel",
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^6.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

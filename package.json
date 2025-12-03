@@ -16,6 +16,7 @@
   "author": "Daniel",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "ethers": "^6.10.0"
   },
   "devDependencies": {

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { ethers, JsonRpcProvider } from "ethers";
 
 // --- CONFIGURATION ---
@@ -5,13 +6,20 @@ import { ethers, JsonRpcProvider } from "ethers";
 // NOTE: For better performance and reliability, replace this with your own dedicated
 // RPC URL (e.g., from Alchemy or Infura). Use environment variables in a real project.
 // We use a public endpoint here for portability.
-const RPC_PROVIDER_URL = 'https://ethereum.publicnode.com';
+const RPC_PROVIDER_URL = process.env.RPC_PROVIDER_URL;
+const TARGET_WALLET_ADDRESS = process.env.TARGET_WALLET_ADDRESS;
+const TOKEN_CONTRACT_ADDRESS = process.env.TOKEN_CONTRACT_ADDRESS;
 
-// The address you want to check (e.g., a well-known address for demonstration)
-const TARGET_WALLET_ADDRESS = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"; // Vitalik Buterin's address
-
-// The contract address for the ERC-20 token (e.g., USDC on Ethereum Mainnet)
-const TOKEN_CONTRACT_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"; // USDC Contract Address
+// Validate that environment variables are set
+if (!RPC_PROVIDER_URL) {
+  throw new Error("RPC_PROVIDER_URL is not set in the .env file.");
+}
+if (!TARGET_WALLET_ADDRESS) {
+  throw new Error("TARGET_WALLET_ADDRESS is not set in the .env file.");
+}
+if (!TOKEN_CONTRACT_ADDRESS) {
+  throw new Error("TOKEN_CONTRACT_ADDRESS is not set in the .env file.");
+}
 
 // Standard ERC-20 ABI subset required to call the `balanceOf` and `decimals` functions
 const ERC20_ABI = [

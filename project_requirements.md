@@ -31,10 +31,20 @@ To provide a clean, fast, and user-friendly interface for viewing the ERC-20 tok
 | :--- | :------------------------------------------------------------------------------------------------------------ |
 | NFR1 | **Performance:** Initial page load should be under 2 seconds. Balance lookups should resolve in under 5 seconds on a stable connection. |
 | NFR2 | **Technology Stack:** The frontend should be built with a modern framework (e.g., React, Vue, Svelte via Next.js, Nuxt, etc.). Web3 interactions should use robust libraries (e.g., `ethers.js`, `viem`, `wagmi`).|
-| NFR3 | **API Dependency:** Balance discovery and price lookups will depend on a third-party API (e.g., Covalent, Moralis, Etherscan API). The system must be resilient to this API's downtime. |
+| NFR3 | **API and RPC Dependency:** Balance discovery and price lookups will depend on third-party APIs (e.g., Covalent, Moralis, Etherscan API). The system must be resilient to API downtime and implement multi-RPC provider failover for blockchain interactions. |
 | NFR4 | **Deployment:** The final application must be deployed to a public hosting platform (e.g., Vercel, Netlify). |
 
-## 5. Out of Scope
+## 5. RPC Provider Resilience
+
+To ensure maximum reliability and optimal user experience, the application will implement advanced RPC provider management with the following features:
+
+| Problem               | Wagmi's Default Behavior                                    | Your Custom Infrastructure Solution                                                                                                                                              |
+| :-------------------- | :---------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rate Limiting (429 Error) | The request fails entirely, and the DApp shows an error message. | Your custom wrapper detects the 429 error, logs the provider failure, and swaps the RPC URL from Alchemy to Infura (or your private node) for all subsequent calls. |
+| Silent Slowdown       | The request eventually succeeds but takes 15 seconds, tanking the UX. | Your custom logic runs parallel health checks and assigns a latency score to each provider. If Provider A's score exceeds 5 seconds, your app routes all traffic to Provider B until Provider A recovers. |
+| API Key Management    | You hardcode one endpoint per environment.                  | You build a simple Load Balancing/Routing service (in Node.js) that abstracts the endpoints, letting you manage and swap keys/providers centrally without frontend redeployment. |
+
+## 6. Out of Scope
 
 *   This application is **read-only**. It will not perform any transactions (sending tokens, swaps, etc.).
 *   Displaying NFT (ERC-721/1155) balances.

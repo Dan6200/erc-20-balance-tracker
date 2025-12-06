@@ -1,3 +1,6 @@
 Session.vim
 node_modules
 .env
+.env.local
+next-env.d.ts
+/.next/

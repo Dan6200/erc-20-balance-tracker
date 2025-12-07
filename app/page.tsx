@@ -1,6 +1,6 @@
-'use client'; // This component will be a client component
+"use client"; // This component will be a client component
 
-import { BalanceChecker } from '../components/BalanceChecker'; // Correct path to BalanceChecker
+import { BalanceChecker } from "../components/balance-tracker"; // Correct path to BalanceChecker
 
 export default function Page() {
   return (

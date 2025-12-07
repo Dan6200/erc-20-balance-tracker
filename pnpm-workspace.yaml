@@ -1,2 +1,3 @@
 onlyBuiltDependencies:
+  - '@reown/appkit'
   - sharp
